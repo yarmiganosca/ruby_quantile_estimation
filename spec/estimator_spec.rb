@@ -7,7 +7,7 @@ describe Quantile::Estimator do
     it 'returns a new Estimator with default quantiles' do
       estimator = Quantile::Estimator.new
 
-      estimator.should have(3).invariants
+      estimator.invariants.size.should == 3
       estimator.invariants[0].quantile.should == 0.5
       estimator.invariants[1].quantile.should == 0.9
       estimator.invariants[2].quantile.should == 0.99
@@ -17,7 +17,7 @@ describe Quantile::Estimator do
       quantiles = [0.7, 0.8].map { |q| Quantile::Quantile.new(q, rand) }
       estimator = Quantile::Estimator.new(*quantiles)
 
-      estimator.should have(quantiles.size).invariants
+      estimator.invariants.size.should == quantiles.size
       quantiles.each_with_index do |quantile, i|
         estimator.invariants[i].should == quantile
       end
